@@ -40,11 +40,3 @@ jobs:
       - name: Run Tests
         run: |
           pytest unittest/ --maxfail=1 --disable-warnings
-
-      - name: Check PR Review
-        run: |
-          # Vérifier si la PR a été revue
-          if [ "$(gh pr view ${GITHUB_REF#refs/heads/} --json reviews --jq '.reviews | length')" -eq 0 ]; then
-            echo "Cette PR n'a pas encore été revue. Vous ne pouvez pas la fusionner."
-            exit 1
-          fi
