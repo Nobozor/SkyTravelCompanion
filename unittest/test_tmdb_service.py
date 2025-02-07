@@ -1,5 +1,10 @@
 import unittest
 from unittest.mock import patch, Mock
+import sys
+import os
+
+# Ajouter le chemin vers le dossier 'services' à sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../services')))
 from tmdb_service import TMDBService
 
 class TestTMDBService(unittest.TestCase):
