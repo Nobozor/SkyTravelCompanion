@@ -1,0 +1,29 @@
+.map-container {
+    height: 500px;
+    margin-bottom: 20px;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+}
+
+#flight-info {
+    margin-top: 20px;
+}
+
+.movie-search {
+    margin-bottom: 30px;
+}
+
+.movie-card {
+    height: 100%;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
