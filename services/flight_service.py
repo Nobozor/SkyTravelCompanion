@@ -1,11 +1,11 @@
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 class FlightService:
     @staticmethod
     def get_flight_info(flight_number):
         # Obtenir le temps actuel en Unix timestamp
-        current_time = datetime.utcnow()
+        current_time = datetime.now(timezone.utc)
         begin_time = int((current_time - timedelta(hours=2)).timestamp())
         end_time = int((current_time + timedelta(hours=2)).timestamp())
 

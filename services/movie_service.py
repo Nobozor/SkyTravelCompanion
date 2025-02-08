@@ -1,5 +1,5 @@
 from typing import List, Dict
-from tmdb_service import TMDBService
+from services.tmdb_service import TMDBService
 
 class MovieService:
     def __init__(self):

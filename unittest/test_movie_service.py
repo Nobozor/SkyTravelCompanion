@@ -5,8 +5,8 @@ import sys
 import os
 
 # Ajouter le chemin vers le dossier 'services' à sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../services')))
-from movie_service import MovieService
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+from services.movie_service import MovieService
 
 class TestMovieService(unittest.TestCase):
     def setUp(self):
