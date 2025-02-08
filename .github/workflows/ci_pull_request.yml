@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Pull request pipeline
 
 on:
   pull_request:
@@ -9,13 +9,6 @@ on:
       - synchronize
       - reopened  # Ces types d'événements permettent de déclencher le job lors de chaque commit
 
-  push:
-    branches:
-      - main
-      - release/*  # Trigger when pushing to main or release branches
-  
-  release:
-    types: [published]  # Trigger when a release is published
 
 jobs:
   # CI/CD Job pour Pull Requests
@@ -39,4 +32,4 @@ jobs:
 
       - name: Run Tests
         run: |
-          pytest unittest/ --maxfail=1 --disable-warnings
+          pytest unittest/ --maxfail=1

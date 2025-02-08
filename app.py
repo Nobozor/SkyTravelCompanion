@@ -15,6 +15,9 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY") or "supersecretkey"
 
+PORT_LISTEN = os.environ.get("PORT_LISTEN") or 5000
+LISTEN_HOST = os.environ.get("LISTEN_HOST") or '0.0.0.0'    
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -60,4 +63,4 @@ def get_movie_recommendations():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=PORT_LISTEN)
