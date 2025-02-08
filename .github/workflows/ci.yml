@@ -40,3 +40,37 @@ jobs:
       - name: Run Tests
         run: |
           pytest unittest/ --maxfail=1 --disable-warnings
+
+  build_and_push:
+    if: github.event_name == 'push' && github.event.pull_request.head.ref == 'main' || github.event_name == 'release'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to docker Hub
+        uses: actions/docker/login@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Define Docker Image Tag
+        id: vars
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
+          else
+            echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+          fi 
+
+      - name: build and push Docker image
+        uses: actions/build-and-push-docker-image@v6
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/SkyTravelCompanion:${{ env.IMAGE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
