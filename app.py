@@ -1,8 +1,12 @@
-import os
 from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
 import requests
 from datetime import datetime, timedelta
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+
 from services.flight_service import FlightService
 from services.movie_service import MovieService
 
