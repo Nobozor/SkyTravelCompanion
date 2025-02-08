@@ -1,0 +1,35 @@
+name: Pull request pipeline
+
+on:
+  pull_request:
+    branches:
+      - main  # Le job sera déclenché à chaque commit dans une PR vers 'main'
+    types: 
+      - opened
+      - synchronize
+      - reopened  # Ces types d'événements permettent de déclencher le job lors de chaque commit
+
+
+jobs:
+  # CI/CD Job pour Pull Requests
+  pr:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' # Seulement pour les PRs
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Tests
+        run: |
+          pytest unittest/ --maxfail=1
