@@ -1,12 +1,18 @@
 function searchMovies(customDuration = null, customCategory = null) {
     const duration = customDuration || document.getElementById('flight-duration').value;
     const category = customCategory || document.getElementById('movie-category').value;
+    const moviesContainer = document.getElementById('movie-recommendations');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    // Affiche le spinner et vide les résultats précédents
+    loadingSpinner.style.display = 'block';
+    moviesContainer.innerHTML = '';
 
     fetch(`/api/movies?duration=${duration}&category=${category}`)
         .then(response => response.json())
         .then(movies => {
-            const moviesContainer = document.getElementById('movie-recommendations');
-            moviesContainer.innerHTML = '';
+            loadingSpinner.style.display = 'none'; // Cache le spinner
+            moviesContainer.innerHTML = ''; // Vide l'affichage précédent
 
             if (movies.length === 0) {
                 moviesContainer.innerHTML = `
@@ -20,7 +26,6 @@ function searchMovies(customDuration = null, customCategory = null) {
             const totalDuration = movies[movies.length - 1].cumulative_duration;
             const flightDuration = parseInt(duration);
 
-            // Ajouter une barre de progression pour montrer la couverture du vol
             moviesContainer.innerHTML = `
                 <div class="mb-4">
                     <h4>Utilisation du temps de vol</h4>
@@ -75,7 +80,8 @@ function searchMovies(customDuration = null, customCategory = null) {
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById('movie-recommendations').innerHTML = `
+            loadingSpinner.style.display = 'none'; // Cache le spinner en cas d'erreur
+            moviesContainer.innerHTML = `
                 <div class="alert alert-danger">
                     Une erreur est survenue lors de la recherche des films.
                 </div>

@@ -1,5 +1,7 @@
 import requests
 from datetime import datetime, timedelta, timezone
+import os
+from dotenv import load_dotenv
 
 class FlightService:
     @staticmethod
@@ -8,6 +10,9 @@ class FlightService:
         current_time = datetime.now(timezone.utc)
         begin_time = int((current_time - timedelta(hours=2)).timestamp())
         end_time = int((current_time + timedelta(hours=2)).timestamp())
+
+        load_dotenv()
+        api_key = os.environ.get('FLIGHTS_API_KEY')
 
         # Utiliser l'API OpenSky pour obtenir les informations de vol
         url = f"https://opensky-network.org/api/states/all"
@@ -18,6 +23,7 @@ class FlightService:
             # Chercher le vol correspondant
             for state in data['states']:
                 if state[1] and state[1].strip() == flight_number:
+                    print(state)
                     # Obtenir le temps d'arrivée estimé
                     # Par défaut, on ajoute 2 heures au temps actuel pour l'estimation
                     arrival_time = current_time + timedelta(hours=2)
@@ -29,6 +35,7 @@ class FlightService:
                     # Construire la réponse avec toutes les informations nécessaires
                     return {
                         'icao24': state[0],
+                        'origin_country': state[2],
                         'callsign': state[1],
                         'latitude': state[6],
                         'longitude': state[5],
