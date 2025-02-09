@@ -30,6 +30,7 @@ def flight_info(flight_number):
     if flight_data:
         return render_template('flight.html', 
                          flight_number=flight_number,
+                         aircraft_origin_country=flight_data['origin_country'],
                          remaining_duration=flight_data['remaining_duration'],
                          arrival_time=flight_data['arrival_time'])
     else:
