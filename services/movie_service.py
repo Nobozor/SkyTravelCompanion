@@ -1,5 +1,6 @@
 from typing import List, Dict
 from services.tmdb_service import TMDBService
+import random
 
 class MovieService:
     def __init__(self):
@@ -13,14 +14,15 @@ class MovieService:
             return []
 
         # Trier les films par durée (du plus long au plus court)
-        movies.sort(key=lambda x: x['duration'], reverse=True)
+        #movies.sort(key=lambda x: x['duration'], reverse=True)
+        random.shuffle(movies)
 
         # Sélectionner les films qui peuvent rentrer dans la durée du vol
         selected_movies = []
         remaining_duration = flight_duration
-
+        print(len(movies))
         for movie in movies:
-            if movie['duration'] <= remaining_duration:
+            if movie['duration'] <= remaining_duration and not movie['duration'] == 0:
                 # Calculer la durée cumulative
                 if selected_movies:
                     cumulative_duration = selected_movies[-1]['cumulative_duration'] + movie['duration']
