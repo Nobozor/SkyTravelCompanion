@@ -27,22 +27,31 @@ class TMDBService:
             'language': 'fr-FR',
             'sort_by': 'popularity.desc',
             'include_adult': False,
-            'page': 1
+            'page': 1,
+            'vote_average.gte': 7
         }
+        all_movies = []
         
         if genre_id:
             params['with_genres'] = genre_id
             
         # Faire la requête à l'API
-        response = requests.get(f'{self.base_url}/discover/movie', params=params)
-        
-        if response.status_code != 200:
-            return []
-            
-        movies_data = response.json()
+        for page in range(1, 4):
+            params['page'] = page
+
+            response = requests.get(f'{self.base_url}/discover/movie', params=params)
+
+            if response.status_code != 200:
+                print(f"Erreur lors de la récupération des films (page {page})")
+                continue
+
+            movies_data = response.json()
+            all_movies.extend(movies_data.get('results', []))
+
         movies = []
+
         
-        for movie in movies_data.get('results', []):
+        for movie in all_movies:
             # Obtenir les détails du film pour avoir la durée
             movie_details = self.get_movie_details(movie['id'])
             if movie_details and movie_details.get('runtime', 0) <= max_duration:
