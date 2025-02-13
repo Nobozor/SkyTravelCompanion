@@ -14,6 +14,10 @@ jobs:
   # CI/CD Job pour Pull Requests
   pr:
     runs-on: ubuntu-latest
+    env:
+      CLIENT_ID: 'default_client_id'
+      CLIENT_SECRET: 'default_client_secret'
+
     if: github.event_name == 'pull_request' # Seulement pour les PRs
 
     steps:

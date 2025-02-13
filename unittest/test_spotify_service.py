@@ -23,7 +23,7 @@ def test_get_access_token(spotify_service):
         mock_response = MagicMock()
         mock_response.json.return_value = {'access_token': 'test_access_token'}
         mock_post.return_value = mock_response
-
+    
         token = spotify_service.get_access_token()
         assert token == 'test_access_token'
 
