@@ -225,3 +225,74 @@ function searchMovies(customDuration = null, customCategory = null) {
             </div>
         </div>
         {% endif %}
+
+
+
+<div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <a href="${playlist.playlist_url}" target="_blank">
+                                <img src="${posterUrl}" class="card-img-top" alt="${playlist.name}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">${playlist.name}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Playlist n° ${index + 1}</h6>
+                                <a href="${playlist.owner_url}" target="_blank" class="btn btn-primary">
+                                    <p class="card-subtitle mb-2 text-muted">Owner : ${playlist.owner} minutes</h8>
+                                </a>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Tracks : ${playlist.total_tracks}</span>
+                                </div>
+                                <p class="card-text">
+                                    <strong>Durée:</strong> ${playlist.duration_min} minutes<br>
+                                    <strong>Temps cumulé:</strong> ${playlist.cumulated_duration} minutes<br>
+                                    ${playlist.playlist_description}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+from services.spotify_service import SpotifyService
+
+class MusicService():
+    def __init__(self):
+        self.spotifyObj = SpotifyService()
+
+    def get_recommendation(self, flight_duration: int, genre: str):
+        enough_playlists = False
+        count = 0
+        nbr_iterations = 10
+        while not enough_playlists:
+            playlists = self.spotifyObj.get_playlists(genre) # get all playlists dicts
+            
+            if not playlists:
+                return []
+            selected_playlists = []
+            remaining_duration = flight_duration
+            for playlist in playlists:
+                if playlist['duration_min'] <= remaining_duration:
+                    if selected_playlists:
+                        cumulated_duration = selected_playlists[-1]['duration_min'] + playlist['duration_min']
+                    else:
+                        cumulated_duration = playlist['duration_min']
+                    
+                    playlist['cumulated_duration'] = round(cumulated_duration, 2)
+                    selected_playlists.append(playlist)
+                    print(playlist['duration_min'])
+                    print(remaining_duration)
+                    print(selected_playlists)
+                    remaining_duration -= playlist['duration_min']
+                if remaining_duration <= 0.25 * flight_duration:
+                    enough_playlists = True
+                    print('enough playlists')
+                    break
+            if not enough_playlists and count < nbr_iterations:
+                count +=1
+                continue
+            elif not enough_playlists and count >= nbr_iterations:
+                return selected_playlists
+            else:
+                return selected_playlists
+                
+if __name__ == "__main__":
+    musicServiceObj = MusicService()
+    print(musicServiceObj.get_recommendation(120, 'metal'))

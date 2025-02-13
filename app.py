@@ -9,6 +9,7 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 from services.flight_service import FlightService
 from services.movie_service import MovieService
+from services.music_service import MusicService
 
 load_dotenv()
 
@@ -60,6 +61,19 @@ def get_movie_recommendations():
 
     movie_service = MovieService()
     recommendations = movie_service.get_recommendations(flight_duration, category)
+    return jsonify(recommendations)
+
+@app.route('/music')
+def music():
+    return render_template('music.html')
+
+@app.route('/api/music')
+def get_music_recommendations():
+    flight_duration = int(request.args.get('duration', 120))
+    category = request.args.get('category', 'rock')
+
+    music_service = MusicService()
+    recommendations = music_service.get_recommendation(flight_duration, category)
     return jsonify(recommendations)
 
 

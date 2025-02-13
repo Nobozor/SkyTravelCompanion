@@ -20,7 +20,6 @@ class MovieService:
         # Sélectionner les films qui peuvent rentrer dans la durée du vol
         selected_movies = []
         remaining_duration = flight_duration
-        print(len(movies))
         for movie in movies:
             if movie['duration'] <= remaining_duration and not movie['duration'] == 0:
                 # Calculer la durée cumulative
