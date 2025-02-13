@@ -8,6 +8,24 @@ function searchMusic( customCategory, customDuration ) {
     loadingSpinner.style.display = 'block';
     musicContainer.innerHTML = '';
 
+
+    function retryFetch(url, options, retries = 3) {
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+        })
+        .catch(error => {
+            if (retries > 0) {
+                console.warn(`Retrying... (${retries} retries left)`);
+                return retryFetch(url, options, retries - 1);
+            } else {
+                throw error;
+            }
+        });
+}
+
+
     fetch(`/api/music?duration=${duration}&category=${category}`)
         .then(response => response.json())
         .then(music => {
