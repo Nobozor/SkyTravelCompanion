@@ -60,7 +60,7 @@ class SpotifyService:
 if __name__ == "__main__":
     spotify_service = SpotifyService()
     genre = "rock"
-    playlists = spotify_service.get_playlists_duration(genre)
+    playlists = spotify_service.get_playlists(genre)
     
     for p in playlists:
         print(json.dumps(p, indent=4))
