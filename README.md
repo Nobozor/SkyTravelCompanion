@@ -42,11 +42,11 @@ Certaines variables d'environnement sont nécessaires pour le bon fonctionnement
 Pour la partie run, il est nécessaire de taper la commande suivante afin de lancer en local l'application : 
 
 ```bash
-docker run --name SkyTravelCompanion 
--e TMDB_API_KEY="TOKEN_TMDB_API_KEY" 
--e SPOTIFY_CLIENT_ID="TOKEN_SPOTIFY_CLIENT_ID" 
--e SPOTIFY_CLIENT_SECRET="TOKEN_SPOTIFY_CLIENT_SECRET" 
--p 5000:5000
+docker run --name SkyTravelCompanion \
+-e TMDB_API_KEY="TOKEN_TMDB_API_KEY" \
+-e SPOTIFY_CLIENT_ID="TOKEN_SPOTIFY_CLIENT_ID" \
+-e SPOTIFY_CLIENT_SECRET="TOKEN_SPOTIFY_CLIENT_SECRET" \
+-p 5000:5000 \
 nobozor/skytravelcompanion:latest
 ```
 
