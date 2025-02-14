@@ -35,7 +35,7 @@ docker run IMAGES_DOCKER
 Pour se connecter à l'application, il suffit de taper l'adresse suivante :
 
 ```
-http://localhost:8080
+http://localhost:5000
 ```
 
 # Utlisation de l'application
