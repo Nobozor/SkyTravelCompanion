@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suivi de Vol - Sky Travel Companion</title>
+    <title>Recommandations de Films - Sky Travel Companion</title>
     <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="stars"></div>
-     <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
         <div class="container">
             <!-- Logo -->
             <a class="navbar-brand fw-bold" href="/">
@@ -47,32 +47,48 @@
     </nav>
 
     <div class="container mt-4">
-        <div class="map-container">
-            <div id="map"></div>
+        <div class="music-search">
+            <h2>Rechercher des Playlists de Musique</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="flight-duration">Durée du Vol (minutes)</label>
+                        <input type="number" class="form-control" id="flight-duration" value="120">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="music-category">Catégorie</label>
+                        <select class="form-control" id="music-category">
+                            <option value="rock">Rock</option>
+                            <option value="pop">Pop</option>
+                            <option value="chill">Chill</option>
+                            <option value="funk">Funk</option>
+                            <option value="techno">Techno</option>
+                            <option value="metal">Metal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary mt-3" onclick="searchMusic()">Rechercher</button>
         </div>
-        <div id="flight-info"></div>
+      
+        <div id="loading-spinner" class="text-center my-3" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+            <p class="mt-2">Recherche en cours...</p>
+        </div>
+
+        <div class="row" id="music-recommendations">
+            <!-- Les recommandations de films seront ajoutées ici dynamiquement -->
+        </div>
+
+        
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="/static/js/map.js"></script>
-    <script src="/static/js/movie.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            initMap();
-            updateFlightPosition('{{ flight_number }}');
-            setInterval(() => updateFlightPosition('{{ flight_number }}'), 30000);
-        });
-
-        function searchFlightMovies() {
-            const duration = {{ remaining_duration or 'null' }};
-            if (duration === null) {
-                alert('Impossible de déterminer la durée du vol');
-                return;
-            }
-            const category = document.getElementById('movie-category').value;
-            searchMovies(duration, category);
-        }
-    </script>
+    <script src="/static/js/spotify.js"></script>
 </body>
 </html>

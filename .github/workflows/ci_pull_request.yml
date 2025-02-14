@@ -14,6 +14,7 @@ jobs:
   # CI/CD Job pour Pull Requests
   pr:
     runs-on: ubuntu-latest
+
     if: github.event_name == 'pull_request' # Seulement pour les PRs
 
     steps:

@@ -1,0 +1,7 @@
+.env
+.cache
+.github/*
+.gitignore
+.test.py
+.venv
+unittest/
