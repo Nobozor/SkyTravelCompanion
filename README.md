@@ -31,3 +31,25 @@ Pour la partie run, il est nécessaire de taper la commande suivante afin de lan
 ```
 docker run IMAGES_DOCKER
 ```
+
+Pour se connecter à l'application, il suffit de taper l'adresse suivante :
+
+```
+http://localhost:8080
+```
+
+# Utlisation de l'application
+
+Une fois sur le page web de l'application, vous disposerez de 3 onglets situé en haut à droite de la page.
+
+## Informations de Vol
+
+Vous pouvez rentrer le numéro d'un vol en cours dans la barre de recherche et les informations correspondantes seront affichées (emplacement sur la carte en temps réel, heure de départ, heure d'arrivée, etc.)
+
+## Films
+
+Vous pouvez entrer la durée de votre prochain vol ainsi que le genre de film que vous souhaitez regarder et l'application vous retournera une liste de films qui rempliera la durée totale du vol (entre 90 et 100% de la durée).
+
+## Musique
+
+Vous pouvez entrer la durée de votre prochain vol ainsi que le style de musique que vous souhaitez écouter et l'application vous retournera une playsit qui rempliera la durée totale du vol (entre 90 et 100% de la durée).
