@@ -14,14 +14,6 @@ jobs:
   # CI/CD Job pour Pull Requests
   pr:
     runs-on: ubuntu-latest
-    env:
-      FLASK_SECRET_KEY: "supercleflask"
-      TMDB_API_KEY: "superclefilm"
-      LISTEN_PORT: 5000
-      LISTEN_HOST: "0.0.0.0"
-      FLIGHTS_API_KEY: "supercleflight"
-      SPOTIFY_CLIENT_ID: "supercleid"
-      SPOTIFY_CLIENT_SECRET: "superclesecret"
 
     if: github.event_name == 'pull_request' # Seulement pour les PRs
 
