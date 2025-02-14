@@ -8,6 +8,7 @@ L'application permet également aux voyageurs et à leurs proches de suivre le v
 ## Features du projet
 - Feature 1 :  
 La première feature de l'application est d'afficher les informations d'un vol en direct. Notamment la position de l'avion sur une carte du monde en temps réel, la latitude/longitude de l'avion, ...  
+`TIPS`: Pour trouver un avion facilement en cours de vol, vous pouvez utiliser le site suivant : https://www.flightradar24.com/
 ![image](./images/flightinfo.png)
 
 - Feature 2 :
